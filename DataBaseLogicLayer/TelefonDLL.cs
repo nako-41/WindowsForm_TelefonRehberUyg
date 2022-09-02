@@ -119,7 +119,7 @@ namespace DataBaseLogicLayer
             try
             {
                 cmd = new SqlCommand(
-                     @"DELETE FROM where ID=@ID", con
+                     @"DELETE FROM Rehber where ID=@ID", con
                      );
                 cmd.Parameters.Add("@ID", SqlDbType.VarChar).Value = ID;
                 BaglantiAyarla();

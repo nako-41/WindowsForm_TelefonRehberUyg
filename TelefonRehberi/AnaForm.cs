@@ -60,19 +60,19 @@ namespace TelefonRehberi
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-          //  Id.Text= dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            //  Id.Text= dataGridView1.CurrentRow.Cells[0].Value.ToString();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Id.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            txtisim.Text=dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            txtsoyisim.Text= dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            txtel.Text= dataGridView1.CurrentRow.Cells[3].Value.ToString();
-            txtmail.Text= dataGridView1.CurrentRow.Cells[4].Value.ToString();
-            txtweb.Text= dataGridView1.CurrentRow.Cells[5].Value.ToString();
-            txtadres.Text= dataGridView1.CurrentRow.Cells[6].Value.ToString();
-            txtaciklama.Text= dataGridView1.CurrentRow.Cells[7].Value.ToString();
+            txtisim.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            txtsoyisim.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            txtel.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            txtmail.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+            txtweb.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+            txtadres.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
+            txtaciklama.Text = dataGridView1.CurrentRow.Cells[7].Value.ToString();
 
         }
 
@@ -81,20 +81,56 @@ namespace TelefonRehberi
             TelefonBLL bll = new TelefonBLL();
             int result = bll.KayitDuzenle(new Rehber
             {
-                ID=int.Parse(Id.Text),
+                ID = int.Parse(Id.Text),
                 Isim = txtisim.Text,
-                Soyisim=txtsoyisim.Text,
-                TelefonNumarasi=txtel.Text,
-                EmailAdres=txtmail.Text,
-                WebAdres=txtweb.Text,
-                Adres=txtadres.Text,
-                Aciklama=txtaciklama.Text
+                Soyisim = txtsoyisim.Text,
+                TelefonNumarasi = txtel.Text,
+                EmailAdres = txtmail.Text,
+                WebAdres = txtweb.Text,
+                Adres = txtadres.Text,
+                Aciklama = txtaciklama.Text
 
-            }) ;
+            });
             if (result > 0)
             {
-                MessageBox.Show("Kayıt guncellendi", "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Kayıt guncellendi");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("silmek istediginizden emin misiniz?", "bilgilendirme", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            if (dialog == DialogResult.Yes)
+            {
+                TelefonBLL bll = new TelefonBLL();
+                int result = bll.KayitSil(new Rehber
+                {
+                    ID = int.Parse(Id.Text)
+                });
+                if (result > 0)
+                {
+                    MessageBox.Show("Kayıt basarıyla silindi");
+                    Temizle();
+                    AnaForm_Load(this,null);
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("iptal ediliyor...");
+            }
+
+
+        }
+        public void Temizle()
+        {
+            txtisim.Text = "";
+            txtsoyisim.Text = "";
+            txtel.Text = "";
+            txtmail.Text = "";
+            txtweb.Text = "";
+            txtadres.Text = "";
+            txtaciklama.Text = "";
         }
     }
 
